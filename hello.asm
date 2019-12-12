@@ -1,0 +1,11 @@
+add $t1,$t2,$t3
+lw $t4,2($t1)
+sw $t1,3($t2)
+beq  $t1,$t1,hi
+j hi
+add $t1,$t2,$t3
+lw $t4,2($t1)
+sw $t1,3($t2)
+add $t1,$t2,$t3
+hi:lw $t4,2($t1)
+sw $t1,3($t2)
