@@ -17,6 +17,8 @@ case (M)
     3'b000: C <= A&B;
     3'b001: C <= A|B;
     3'b011: C <=A<B? 32'b1:32'b0;
+    3'b010: C <=B << A;
+    3'b111: C <=B >> A;
     
 endcase
 end 

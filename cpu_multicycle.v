@@ -34,7 +34,7 @@ module cpu_multicycle(
 
 
 
-    Controller controller(clk,  inst[31:26], PCWrCond, PCWr , IorD, MemRd, MemWr, MemtoReg, IRWr, PCSrc, ALUOp, ALUSrcB, ALUSrcA, RegWr, RegDst);
+    Controller controller(clk,  inst[31:26], inst[5:0],PCWrCond, PCWr , IorD, MemRd, MemWr, MemtoReg, IRWr, PCSrc, ALUOp, ALUSrcB, ALUSrcA, RegWr, RegDst);
     Pc_multicycle pc(clk, or_out,pc_in,pc_out);
     Mux mux_1(pc_out,aluout_out,IorD,mux_1_out);
     IR ir(clk,IRWr,r_data,inst);
@@ -53,7 +53,7 @@ module cpu_multicycle(
     Alu alu(mux_4_out,mux4_1_out,ALUCtrl,alu_out,alu_zero);
     Alucu alucu(ALUOp,inst[5:0],ALUCtrl);
     D_ff aluout(clk,alu_out,aluout_out);
-    Mux4 mux4_2(alu_out,aluout_out,{pc_out[31:28],shl2_1_out},pc4,PCSrc,pc_in);
+    Mux4 mux4_2(alu_out,aluout_out,{pc_out[31:28],shl2_1_out},d_ff_A_out,PCSrc,pc_in);
     And and1(PCWrCond,alu_zero,and_out);
     Or or1(and_out,PCWr,or_out);
 

@@ -1,6 +1,7 @@
 `include "header.h"
-module Controller (clk,  Op, PCWrCond, PCWr , IorD, MemRd, MemWr, MemtoReg, IRWr, PCSrc, ALUOp, ALUSrcB, ALUSrcA, RegWr, RegDst);
+module Controller (clk,  Op,Func, PCWrCond, PCWr , IorD, MemRd, MemWr, MemtoReg, IRWr, PCSrc, ALUOp, ALUSrcB, ALUSrcA, RegWr, RegDst);
 input [5:0] Op;
+input [5:0] Func;
 input clk;
 output [1:0] ALUOp, ALUSrcB, PCSrc;
 output PCWrCond, PCWr , IorD, MemRd, MemWr, MemtoReg, IRWr, ALUSrcA, RegWr, RegDst; 
@@ -19,10 +20,15 @@ parameter S8=8;
 parameter S9=9; 
 parameter S10=10; 
 parameter S11=11;
+parameter S12=12;
+parameter S13=13;
+parameter S14=14;
+parameter S15=15;
+
 always@(posedge clk) begin 
 state=nextstate;
 end
-always @(state, Op) begin
+always @(state, Op,Func) begin //if lack Func  nop instruction will cause error
 
 case(state)
 S0: begin
@@ -61,9 +67,20 @@ end
 if(Op==6'b000010) begin //if jump instruction 
 nextstate=S9;
 end
-if((Op==6'b001100)|(Op==6'b001101)|(Op==6'b001110)|(Op==6'b001111)) begin //if I type
+
+if(Op==6'b001100) begin //if ANDI
 nextstate=S10; 
 end
+if(Op==6'b001000) begin //if ADDI
+nextstate=S12; 
+end
+if(Op==6'b000000 && Func==6'b001000) begin //if JR
+nextstate=S13; 
+end
+if(Op==6'b000000 && Func==6'b000000) begin //if NOP
+nextstate=S0; 
+end
+
 end
 S2: begin
 ALUSrcA = 1'b1;
@@ -122,15 +139,35 @@ S10: begin
 
 ALUSrcA= 1'b1; 
 ALUSrcB= 2'b10; 
-ALUOp = 2'b10; 
+ALUOp = 2'b11; 
 nextstate = S11;
 end
-S11: begin
+S11: begin  //I type instrction register write
 RegDst= 1'b0;
 RegWr = 1'b1; 
 MemtoReg = 1'b0; 
 nextstate= S0;
 end
+
+S12: begin
+ALUSrcA= 1'b1; 
+ALUSrcB= 2'b10; 
+ALUOp = 2'b00; 
+nextstate = S11;
+end
+
+S13: begin
+PCWr=1'b1;
+PCSrc=2'b11;
+nextstate = S0;
+end
+
+S14: begin
+PCWr=1'b1;
+PCSrc = 2'b01;
+nextstate = S0;
+end
+
 endcase 
 end
 endmodule

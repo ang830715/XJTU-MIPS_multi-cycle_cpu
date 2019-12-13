@@ -34,7 +34,7 @@ initial begin
     // mem[1]<=8'h48;
     // mem[2]<=8'h4b;
     // mem[3]<=8'h01;
-    $readmemh("/usr/local/Caskroom/mars/4.5,Aug2014/inst.dat", mem);
+    $readmemh("inst.dat", mem);
 end
 
 

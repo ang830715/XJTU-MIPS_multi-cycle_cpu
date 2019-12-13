@@ -9,3 +9,8 @@ sw $t1,3($t2)
 add $t1,$t2,$t3
 hi:lw $t4,2($t1)
 sw $t1,3($t2)
+sub $t1,$t3,$t2
+addu $t1,$t2,$t3
+and $t4,$t2,$t3
+or $t4,$t2,$t3
+slt $t4,$t2,$t3
