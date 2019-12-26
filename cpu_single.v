@@ -61,7 +61,7 @@ module cpu(
     pc4 <= 3'b100;  
     
     end
-    #100 begin
+    #220 begin
         $finish;
     end
      end

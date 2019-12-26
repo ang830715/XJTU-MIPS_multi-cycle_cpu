@@ -1,6 +1,4 @@
-// `define HIGH    1'b1        
-// `define LOW     1'b0
-// `define WIDTH   31:0
+
 `include "header.h"
 
 module Memory(
@@ -34,7 +32,7 @@ initial begin
     // mem[1]<=8'h48;
     // mem[2]<=8'h4b;
     // mem[3]<=8'h01;
-    $readmemh("inst.dat", mem);
+    $readmemh("extra_instructions.dat", mem);
 end
 
 

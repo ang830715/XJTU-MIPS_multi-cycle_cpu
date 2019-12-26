@@ -72,7 +72,7 @@ always #10
     pc4 <= 3'b100;  
     
     end
-    #1000 begin
+    #700 begin
         $finish;
     end
      end

@@ -53,31 +53,31 @@ ALUSrcA=1'b0;
 ALUSrcB=2'b11;
 PCWr =1'b0;
 ALUOp= 2'b00;
-if(Op==6'b100011) begin //if op code is lw or sw
+if(Op==6'b100011) begin // op code  lw or sw
 nextstate=S2; 
 end
-if(Op==6'b101011) begin //if op code is lw or sw 
+if(Op==6'b101011) begin // op code  lw or sw 
 nextstate=S2;
 end
-if(Op==6'b000000) begin // if R type instruction
+if(Op==6'b000000) begin //  R type instruction
 nextstate=S6; end
-if(Op==6'b000100) begin //if beq instruction 
+if(Op==6'b000100) begin // beq instruction 
 nextstate=S8;
 end
-if(Op==6'b000010) begin //if jump instruction 
+if(Op==6'b000010) begin // jump instruction 
 nextstate=S9;
 end
 
-if(Op==6'b001100) begin //if ANDI
+if(Op==6'b001100) begin // ANDI
 nextstate=S10; 
 end
-if(Op==6'b001000) begin //if ADDI
+if(Op==6'b001000) begin // ADDI
 nextstate=S12; 
 end
-if(Op==6'b000000 && Func==6'b001000) begin //if JR
+if(Op==6'b000000 && Func==6'b001000) begin // JR
 nextstate=S13; 
 end
-if(Op==6'b000000 && Func==6'b000000) begin //if NOP
+if(Op==6'b000000 && Func==6'b000000) begin // NOP
 nextstate=S0; 
 end
 
